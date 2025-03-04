@@ -1,0 +1,54 @@
+#base{
+    -fx-background-color: #eff1f5;
+}
+
+#taskVbox{
+    -fx-background-color: #dce0e8;
+    -fx-background-radius: 10;
+}
+
+#taskCreationMainHbox{
+    -fx-background-color: #bcc0cc;
+    -fx-background-radius: 10 10 0 0;
+}
+
+#taskCreationAdditionalHbox{
+    -fx-background-color: #bcc0cc;
+}
+
+#addNewTaskBtn{
+    -fx-background-color: #40a02b;
+}
+
+/* TASK TEXT */
+
+#taskHBox{
+    -fx-background-color: #ccd0da;
+}
+
+#taskTitle{
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+}
+
+#taskDescription{
+    -fx-font-size: 12;
+}
+
+.button{
+    -fx-background-radius: 2;
+    -fx-background-color: #7287fd;
+    -fx-text-fill: #eff1f5;
+    -fx-font-weight: bold;
+}
+
+.button:focused{
+    -fx-background-color: #4762ff;
+}
+
+.text-field{
+    -fx-border-radius: 5;
+    -fx-prompt-text-fill: #6c6f85;
+    -fx-text-fill: #4c4f69;
+    -fx-font-weight: 600;
+}

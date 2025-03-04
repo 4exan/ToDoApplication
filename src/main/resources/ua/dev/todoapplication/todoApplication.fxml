@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane id="base" prefHeight="600.0" prefWidth="800.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ua.dev.todoapplication.controller.ApplicationController">
+   <children>
+      <VBox id="taskVbox" fx:id="taskVbox" layoutX="156.0" layoutY="132.0" prefHeight="400.0" prefWidth="600.0" stylesheets="@stylesheet.css" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">
+         <children>
+            <VBox fx:id="taskCreationVbox" prefHeight="100.0" prefWidth="100.0">
+               <children>
+                  <HBox id="taskCreationMainHbox" fx:id="taskCreationMainHbox" alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0" spacing="5.0" stylesheets="@stylesheet.css">
+                     <children>
+                        <TextField fx:id="taskCreationTitleTextField" promptText="Task title" />
+                        <TextField fx:id="taskCreationDescriptionTextField" promptText="Description" />
+                        <DatePicker fx:id="taskCreationDatePicker" prefWidth="100.0" promptText="Task date" />
+                        <Button id="addNewTaskBtn" fx:id="addNewTaskBtn" mnemonicParsing="false" onAction="#addNewTask" stylesheets="@stylesheet.css" text="Add new task" />
+                        <CheckBox id="moreCheckBox" fx:id="taskCreationAdvancedOptionCheckBox" mnemonicParsing="false" onAction="#toggleAdvancedTaskCreationOptions" stylesheets="@stylesheet.css" text="More" />
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                  </HBox>
+                  <HBox id="taskCreationAdditionalHbox" fx:id="taskCreationAditionalHbox" alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0" spacing="5.0" stylesheets="@stylesheet.css" visible="false">
+                     <children>
+                        <Label text="Priority:" />
+                        <ChoiceBox fx:id="taskCreationPriorityChoiceBox" prefWidth="150.0" />
+                        <Separator orientation="VERTICAL" prefHeight="200.0" />
+                        <Label text="Time:" />
+                        <TextField fx:id="taskCreationStartTimeTextField" prefWidth="50.0" promptText="Start" />
+                        <TextField fx:id="taskCreationEndTimeTextField" prefWidth="50.0" promptText="End" />
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+      <HBox alignment="CENTER_LEFT" layoutX="195.0" layoutY="145.0" prefHeight="50.0" prefWidth="600.0" spacing="5.0">
+         <children>
+            <Separator orientation="VERTICAL" prefHeight="25.0" />
+            <Button id="completedTasksBtn" mnemonicParsing="false" stylesheets="@stylesheet.css" text="Completed" />
+            <Button mnemonicParsing="false" text="Uncompleted" />
+            <Button mnemonicParsing="false" text="Today" />
+            <Separator orientation="VERTICAL" prefHeight="200.0" />
+            <DatePicker />
+            <Button mnemonicParsing="false" text="Go to date" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

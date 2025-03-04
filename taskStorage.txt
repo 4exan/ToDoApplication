@@ -1,0 +1,4 @@
+id='0fce6ab5-e016-4e65-8583-a08a4056dde7', title='Fix priority error', description='Priority apear as 'null'', date='2025-03-04', priority='HIGH', timeStart='17:40', timeEnd='18:00'
+id='ac057792-7a41-46dd-b440-4d7706e843e0', title='Is priorities fixed?', description='Test task', date='2025-03-04', priority='MEDIUM', timeStart='17:45', timeEnd='18:00'
+id='34c2d277-e751-4544-9178-51a4ac662d88', title='Test Low Priority task', description='Test Low priority task', date='2025-03-04', priority='LOW', timeStart='17:45', timeEnd='18:00'
+id='7dad55c1-f3c2-432a-895b-4934b1af3a05', title='Test basic task', description='Test basic task without additional options', date='2025-03-04', priority='null', timeStart='null', timeEnd='null'
