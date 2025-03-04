@@ -66,53 +66,112 @@ public class ApplicationController implements Initializable {
         if(!taskList.isEmpty()){
             List<HBox> tasks = new ArrayList<>();
             taskList.forEach(task -> {
-                HBox hbox = new HBox();
-                hbox.setSpacing(5);
-                hbox.setPadding(new Insets(0, 0, 0, 5));
-                hbox.setAlignment(Pos.CENTER_LEFT);
-                hbox.setPrefHeight(50);
-                hbox.getStylesheets().add(STYLESHEET_NAME);
-                hbox.setId("taskHBox");
-                switch(task.getPriority()){
-                    case "LOW" : hbox.setStyle("-fx-border-width: 0 0 1 2; -fx-border-color: green");break;
-                    case "MEDIUM" : hbox.setStyle("-fx-border-width: 0 0 1 2; -fx-border-color: yellow");break;
-                    case "HIGH" : hbox.setStyle("-fx-border-width: 0 0 1 2; -fx-border-color: red");break;
-                    default: hbox.setStyle("-fx-border-width: 0 0 1 2; -fx-border-color: #bcc0cc");break;
-                }
-                VBox textVBox = new VBox();
-                textVBox.setPrefWidth(200);
+                HBox hbox = createNewTaskBox(task);
+                VBox textVBox = createTextVBox(task);
+                VBox dataTimeVBox = createDateTimeVBox(task);
+                HBox btnBox = createBtnHBox();
 
-                Label taskTitle = new Label(task.getTitle());
-                taskTitle.getStylesheets().add(STYLESHEET_NAME);
-                taskTitle.setId("taskTitle");
-
-                Label taskDescription = new Label(task.getDescription());
-                taskDescription.getStylesheets().add(STYLESHEET_NAME);
-                taskDescription.setId("taskDescription");
-                textVBox.setAlignment(Pos.CENTER_LEFT);
-                textVBox.getChildren().addAll(List.of(taskTitle, taskDescription));
-
-                Label taskDateTime = new Label();
-                taskDateTime.setPrefWidth(200);
-                if(task.getTimeStart() == null && task.getTimeEnd() == null){
-                    taskDateTime.setText(task.getDate());
-                }else{
-                    taskDateTime.setText(task.getDate() + " " + task.getTimeStart() + " " + task.getTimeEnd());
-                }
-
-                HBox btnBox = new HBox();
-                btnBox.setAlignment(Pos.CENTER);
-                btnBox.setSpacing(5);
-                Button completeTaskBtn = new Button("Complete");
-                Button editTaskBtn = new Button("Edit");
-                Button deleteTaskBtn = new Button("Delete");
-                btnBox.getChildren().addAll(List.of(completeTaskBtn, editTaskBtn, deleteTaskBtn));
-
-                hbox.getChildren().addAll(textVBox, taskDateTime, btnBox);
+                hbox.getChildren().addAll(textVBox, dataTimeVBox, btnBox);
                 tasks.add(hbox);
             });
             taskVbox.getChildren().addAll(tasks);
         }
+    }
+
+    private HBox createBtnHBox() {
+        HBox btnBox = new HBox();
+        btnBox.setAlignment(Pos.CENTER);
+        btnBox.setSpacing(5);
+        Button completeTaskBtn = new Button("Complete");
+        Button editTaskBtn = new Button("Edit");
+        Button deleteTaskBtn = new Button("Delete");
+        btnBox.getChildren().addAll(List.of(completeTaskBtn, editTaskBtn, deleteTaskBtn));
+        return btnBox;
+    }
+
+    private VBox createDateTimeVBox(Task task) {
+        VBox dateTimeVBox = new VBox();
+        dateTimeVBox.setPrefWidth(200);
+        dateTimeVBox.setAlignment(Pos.CENTER);
+        dateTimeVBox.getChildren().addAll(createDateTimeLabels(task));
+        return dateTimeVBox;
+    }
+
+    private Collection<Label> createDateTimeLabels(Task task) {
+        Label date = createDateLabel(task.getDate());
+        Label time = createTimeLabel(task.getTimeStart(), task.getTimeEnd());
+        return List.of(date, time);
+    }
+
+    private Label createTimeLabel(String timeStart, String timeEnd) {
+        Label timeLabel = new Label();
+        StringBuilder dateTimeString = new StringBuilder();
+        if(!timeStart.isBlank() && !timeStart.equals("null")){
+            dateTimeString.append(timeStart);
+        }else{
+            dateTimeString.append("...");
+        }
+        if(!timeEnd.isBlank() && !timeEnd.equals("null")){
+            dateTimeString.append(timeEnd);
+        }else{
+            dateTimeString.append("...");
+        }
+        timeLabel.setText(String.valueOf(dateTimeString));
+        timeLabel.getStylesheets().add(STYLESHEET_NAME);
+        timeLabel.setId("taskTimeLabel");
+        return timeLabel;
+    }
+
+    private Label createDateLabel(String date) {
+        Label dateLabel = new Label(date);
+        dateLabel.getStylesheets().add(STYLESHEET_NAME);
+        dateLabel.setId("taskDateLabel");
+        return dateLabel;
+    }
+
+    private VBox createTextVBox(Task task) {
+        VBox textVBox = new VBox();
+        textVBox.setPrefWidth(200);
+        textVBox.setAlignment(Pos.CENTER_LEFT);
+        textVBox.getChildren().addAll(createTaskText(task));
+        return textVBox;
+    }
+
+    private Collection<Label> createTaskText(Task task) {
+        Label taskTitle = createTaskTitleLabel(task.getTitle());
+        Label taskDescription = createTaskDescriptionLabel(task.getDescription());
+        return List.of(taskTitle, taskDescription);
+    }
+
+    private Label createTaskDescriptionLabel(String description) {
+        Label taskDescription = new Label(description);
+        taskDescription.getStylesheets().add(STYLESHEET_NAME);
+        taskDescription.setId("taskDescription");
+        return taskDescription;
+    }
+
+    private Label createTaskTitleLabel(String title) {
+        Label taskTitle = new Label(title);
+        taskTitle.getStylesheets().add(STYLESHEET_NAME);
+        taskTitle.setId("taskTitle");
+        return taskTitle;
+    }
+
+    private HBox createNewTaskBox(Task task) {
+        HBox hbox = new HBox();
+        hbox.setSpacing(5);
+        hbox.setPadding(new Insets(0, 0, 0, 5));
+        hbox.setAlignment(Pos.CENTER_LEFT);
+        hbox.setPrefHeight(50);
+        hbox.getStylesheets().add(STYLESHEET_NAME);
+        hbox.setId("taskHBox");
+        switch(task.getPriority()){
+            case "LOW" : hbox.setStyle("-fx-border-width: 0 0 1 2; -fx-border-color: green");break;
+            case "MEDIUM" : hbox.setStyle("-fx-border-width: 0 0 1 2; -fx-border-color: yellow");break;
+            case "HIGH" : hbox.setStyle("-fx-border-width: 0 0 1 2; -fx-border-color: red");break;
+            default: hbox.setStyle("-fx-border-width: 0 0 1 2; -fx-border-color: #bcc0cc");break;
+        }
+        return hbox;
     }
 
     private void readFile() {

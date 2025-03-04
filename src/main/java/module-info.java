@@ -1,7 +1,7 @@
 module ua.dev.todoapplication {
     requires javafx.controls;
     requires javafx.fxml;
-    //requires javafx.base;
+    requires javafx.base;
 
     exports ua.dev.todoapplication;
     exports ua.dev.todoapplication.controller;
