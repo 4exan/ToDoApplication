@@ -12,27 +12,39 @@
 
 <AnchorPane id="base" prefHeight="600.0" prefWidth="800.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ua.dev.todoapplication.controller.ApplicationController">
    <children>
-      <VBox id="taskVbox" fx:id="taskVbox" layoutX="195.0" layoutY="195.0" prefHeight="400.0" prefWidth="600.0" stylesheets="@stylesheet.css" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">
+      <VBox id="taskVbox" fx:id="taskVbox" layoutX="195.0" layoutY="195.0" prefHeight="450.0" prefWidth="600.0" stylesheets="@stylesheet.css" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">
          <children>
-            <VBox id="taskCreationVBox" fx:id="taskCreationVbox" prefWidth="100.0" stylesheets="@stylesheet.css">
+            <VBox id="taskCreationVBox" alignment="CENTER" prefHeight="100.0" prefWidth="100.0" stylesheets="@stylesheet.css">
                <children>
-                  <HBox id="taskCreationMainHbox" fx:id="taskCreationMainHbox" alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0" spacing="5.0" stylesheets="@stylesheet.css">
+                  <HBox alignment="CENTER" prefWidth="200.0">
                      <children>
-                        <TextField fx:id="taskCreationTitleTextField" promptText="Task title" stylesheets="@stylesheet.css" />
-                        <TextField fx:id="taskCreationDescriptionTextField" promptText="Description" stylesheets="@stylesheet.css" />
-                        <DatePicker fx:id="taskCreationDatePicker" prefWidth="100.0" promptText="Task date" />
-                        <Button id="addNewTaskBtn" fx:id="addNewTaskBtn" mnemonicParsing="false" onAction="#addNewTask" stylesheets="@stylesheet.css" text="Add new task" />
-                        <CheckBox id="moreCheckBox" fx:id="taskCreationAdvancedOptionCheckBox" mnemonicParsing="false" onAction="#toggleAdvancedTaskCreationOptions" stylesheets="@stylesheet.css" text="More" />
+                        <VBox fx:id="taskCreationVbox" alignment="CENTER" prefHeight="100.0" prefWidth="550.0" spacing="5.0">
+                           <children>
+                              <HBox id="taskCreationMainHbox" fx:id="taskCreationMainHbox" alignment="CENTER" prefWidth="520.0" spacing="5.0" stylesheets="@stylesheet.css">
+                                 <children>
+                                    <TextField fx:id="taskCreationTitleTextField" promptText="Task title" stylesheets="@stylesheet.css" />
+                                    <TextField fx:id="taskCreationDescriptionTextField" promptText="Description" stylesheets="@stylesheet.css" />
+                                    <DatePicker fx:id="taskCreationDatePicker" prefWidth="100.0" promptText="Task date" />
+                                    <Button id="addNewTaskBtn" fx:id="addNewTaskBtn" mnemonicParsing="false" onAction="#addNewTask" stylesheets="@stylesheet.css" text="Add new task" />
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </HBox>
+                           </children>
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <CheckBox id="moreCheckBox" fx:id="taskCreationAdvancedOptionCheckBox" mnemonicParsing="false" onAction="#toggleAdvancedTaskCreationOptions" stylesheets="@stylesheet.css" text="More" />
+                           </children>
+                        </VBox>
                      </children>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                     <padding>
-                        <Insets left="5.0" />
-                     </padding>
                   </HBox>
                </children>
             </VBox>

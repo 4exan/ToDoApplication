@@ -5,11 +5,12 @@
 #taskVbox{
     -fx-background-color: #dce0e8;
     -fx-background-radius: 10;
+    -fx-border-radius: 10;
 }
 
 #taskCreationMainHbox{
     -fx-background-color: #bcc0cc;
-    -fx-background-radius: 10 10 0 0;
+    -fx-background-radius: 0 0 5 5;
 }
 
 /* TASK TEXT */
@@ -20,6 +21,8 @@
 
 #taskCreationVBox{
     -fx-background-color: #bcc0cc;
+    -fx-border-radius: 0 5 5 0;
+    -fx-background-radius: 5 5 0 0;
 }
 
 #taskTitle{
