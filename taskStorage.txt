@@ -1,4 +1,8 @@
-id='0fce6ab5-e016-4e65-8583-a08a4056dde7', title='Fix priority error', description='Priority apear as 'null'', date='2025-03-04', priority='HIGH', timeStart='17:40', timeEnd='18:00'
-id='ac057792-7a41-46dd-b440-4d7706e843e0', title='Is priorities fixed?', description='Test task', date='2025-03-04', priority='MEDIUM', timeStart='17:45', timeEnd='18:00'
-id='34c2d277-e751-4544-9178-51a4ac662d88', title='Test Low Priority task', description='Test Low priority task', date='2025-03-04', priority='LOW', timeStart='17:45', timeEnd='18:00'
-id='7dad55c1-f3c2-432a-895b-4934b1af3a05', title='Test basic task', description='Test basic task without additional options', date='2025-03-04', priority='null', timeStart='null', timeEnd='null'
+id='8de2c0a7-4050-4323-8e69-88fb19fd0b15', title='Fix priority', description='Make priority more pretty', creationDate='Fri Mar 07 13:07:31 EET 2025', date='2025-03-07', priority='HIGH', timeStart='null', timeEnd='null'}
+id='c5ed827a-a4ab-4a04-a673-80a4258e1538', title='Basic task', description='For testing purpouses', creationDate='Fri Mar 07 13:07:46 EET 2025', date='2025-03-07', priority='null', timeStart='null', timeEnd='null'}
+id='3faeb3f8-d80f-48fb-9288-377e0dac115b', title='Fix refresh', description='Add refresh when adding new task', creationDate='Fri Mar 07 13:09:27 EET 2025', date='2025-03-07', priority='null', timeStart='null', timeEnd='null'}
+id='5ec12853-f800-4427-b093-9849c13cbede', title='Low priority task', description='For testing purposes', creationDate='Fri Mar 07 13:12:14 EET 2025', date='2025-03-07', priority='LOW', timeStart='12:00', timeEnd='17:00'}
+id='d959c794-9734-4262-bc00-726bcd4525fe', title='Test', description='Test', creationDate='Fri Mar 07 13:27:49 EET 2025', date='2025-03-07', priority='null', timeStart='null', timeEnd='null'}
+id='253bdce9-3dd1-4323-ad09-6ddde9c2abad', title='Scroll test', description='Scroll test', creationDate='Mon Mar 10 16:18:11 EET 2025', date='2025-03-10', priority='null', timeStart='null', timeEnd='null'}
+id='5ad96d36-dd19-49d5-bb7a-6e014d999e54', title='Scroll test', description='Scroll test', creationDate='Mon Mar 10 16:18:18 EET 2025', date='2025-03-10', priority='null', timeStart='null', timeEnd='null'}
+id='3bbbb651-8fb2-413f-9f55-69f07ed5c59f', title='Scroll test', description='Scroll test', creationDate='Mon Mar 10 16:18:23 EET 2025', date='2025-03-10', priority='null', timeStart='null', timeEnd='null'}

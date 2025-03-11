@@ -1,11 +1,10 @@
 package ua.dev.todoapplication.entity;
 
-import ua.dev.todoapplication.utils.TaskPriority;
-
 public class Task {
     private String id;
     private String title;
     private String description;
+    private String creationDate;
     private String date;
     private String priority;
     private String timeStart;
@@ -14,17 +13,19 @@ public class Task {
     public Task() {
     }
 
-    public Task(String id, String title, String description, String date) {
+    public Task(String id, String title, String description, String creationDate, String date) {
         this.id = id;
         this.title = title;
         this.description = description;
+        this.creationDate = creationDate;
         this.date = date;
     }
 
-    public Task(String id, String title, String description, String date, String priority, String timeStart, String timeEnd) {
+    public Task(String id, String title, String description, String creationDate, String date, String priority, String timeStart, String timeEnd) {
         this.id = id;
         this.title = title;
         this.description = description;
+        this.creationDate = creationDate;
         this.date = date;
         this.priority = priority;
         this.timeStart = timeStart;
@@ -53,6 +54,14 @@ public class Task {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(String creationDate) {
+        this.creationDate = creationDate;
     }
 
     public String getDate() {
@@ -92,9 +101,11 @@ public class Task {
         return  "id='" + id + '\'' +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
+                ", creationDate='" + creationDate + '\'' +
                 ", date='" + date + '\'' +
                 ", priority='" + priority + '\'' +
                 ", timeStart='" + timeStart + '\'' +
-                ", timeEnd='" + timeEnd + '\'';
+                ", timeEnd='" + timeEnd + '\'' +
+                '}';
     }
 }
