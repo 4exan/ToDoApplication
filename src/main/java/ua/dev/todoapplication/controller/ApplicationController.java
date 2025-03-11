@@ -14,11 +14,8 @@ import ua.dev.todoapplication.service.TaskService;
 import ua.dev.todoapplication.utils.ObjectCreator;
 import ua.dev.todoapplication.utils.TaskPriority;
 
-import java.io.*;
 import java.net.URL;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class ApplicationController implements Initializable {
 
@@ -34,14 +31,14 @@ public class ApplicationController implements Initializable {
     @FXML
     private TextField taskCreationDescriptionTextField;
 
-    @FXML
-    private TextField taskCreationEndTimeTextField;
+//    @FXML
+//    private TextField taskCreationEndTimeTextField;
 
-    @FXML
-    private ChoiceBox<TaskPriority> taskCreationPriorityChoiceBox;
+//    @FXML
+//    private ChoiceBox<TaskPriority> taskCreationPriorityChoiceBox;
 
-    @FXML
-    private TextField taskCreationStartTimeTextField;
+//    @FXML
+//    private TextField taskCreationStartTimeTextField;
 
     @FXML
     private TextField taskCreationTitleTextField;
@@ -70,6 +67,9 @@ public class ApplicationController implements Initializable {
     @FXML
     private Label taskCreationTimeLabel;
 
+    @FXML
+    private Button refreshBtn;
+
     // Projects
     @FXML
     private VBox projectsVBox;
@@ -79,43 +79,54 @@ public class ApplicationController implements Initializable {
     private final String FILE_NAME = "taskStorage.txt";
     private final String STYLESHEET_NAME = "stylesheet.css";
     private List<Task> taskList = new ArrayList<>();
+    //Advanced option
+    private ChoiceBox<TaskPriority> taskCreationPriorityChoiceBox;
+    private TextField taskCreationStartTimeTextField;
+    private TextField taskCreationEndTimeTextField;
 
     private final ObjectCreator creator = new ObjectCreator();
-    private final TaskService taskService = new TaskService();
     private final FileService fileService = new FileService();
+    private final TaskService taskService = new TaskService(fileService);
 
     private HBox advancedSettingsHBox;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         advancedSettingsHBox = createAdvancedOptionHBox();
-        taskList.addAll(fileService.readFile());
+        fileService.readJsonFile();
+        taskList.addAll(taskService.getTodayUncompletedTasks());
         if(!taskList.isEmpty()){
             refreshTaskHBox();
         }
     }
 
+    @FXML
+    public void refresh(){
+        fileService.readJsonFile();
+        refreshTaskHBox();
+    }
+
     private HBox createAdvancedOptionHBox() {
         Label priorityLabel = new Label("Priority:");
 
-        ChoiceBox<TaskPriority> taskPriorityChoiceBox = new ChoiceBox<>();
-        taskPriorityChoiceBox.getItems().addAll(List.of(TaskPriority.LOW, TaskPriority.MEDIUM, TaskPriority.HIGH));
+        taskCreationPriorityChoiceBox = new ChoiceBox<>();
+        taskCreationPriorityChoiceBox.getItems().addAll(List.of(TaskPriority.LOW, TaskPriority.MEDIUM, TaskPriority.HIGH));
 
         Label timeLabel = new Label("Time:");
 
-        TextField timeStartTF = new TextField();
-        timeStartTF.setPromptText("Start");
-        TextField timeEndTF = new TextField();
-        timeEndTF.setPromptText("End");
+        taskCreationStartTimeTextField = new TextField();
+        taskCreationStartTimeTextField.setPromptText("Start");
+        taskCreationEndTimeTextField = new TextField();
+        taskCreationEndTimeTextField.setPromptText("End");
 
         HBox hbox = creator.createHBox(200, 50, 5, Pos.CENTER_LEFT);
         hbox.setPadding(new Insets(0, 0, 5, 5));
         hbox.getChildren().addAll(List.of(
                 priorityLabel,
-                taskPriorityChoiceBox,
+                taskCreationPriorityChoiceBox,
                 timeLabel,
-                timeStartTF,
-                timeEndTF
+                taskCreationStartTimeTextField,
+                taskCreationEndTimeTextField
         ));
         return hbox;
     }
@@ -154,7 +165,8 @@ public class ApplicationController implements Initializable {
 
     private Collection<Label> createDateTimeLabels(Task task) {
         Label date = creator.createLabel(task.getDate(), "taskDateLabel");
-        if(task.getTimeStart().equals("null") && task.getTimeEnd().equals("null")){
+
+        if(task.getTimeStart().isEmpty() && task.getTimeEnd().isEmpty()){
             return List.of(date);
         }else {
             Label time = createTimeLabel(task.getTimeStart(), task.getTimeEnd());
@@ -165,14 +177,14 @@ public class ApplicationController implements Initializable {
     private Label createTimeLabel(String timeStart, String timeEnd) {
         Label timeLabel = new Label();
         StringBuilder dateTimeString = new StringBuilder();
-        if(!timeStart.isBlank() && !timeStart.equals("null")){
+        if(!timeStart.isBlank()){
             dateTimeString.append(timeStart);
             dateTimeString.append(" ");
         }else{
             dateTimeString.append("...");
         }
         dateTimeString.append(" - ");
-        if(!timeEnd.isBlank() && !timeEnd.equals("null")){
+        if(!timeEnd.isBlank()){
             dateTimeString.append(timeEnd);
         }else{
             dateTimeString.append("...");
@@ -200,11 +212,20 @@ public class ApplicationController implements Initializable {
         hbox.setPadding(new Insets(0, 0, 0, 5));
         hbox.getStylesheets().add(STYLESHEET_NAME);
         hbox.setId("taskHBox");
-        switch(task.getPriority()){
-            case "LOW" : hbox.setStyle("-fx-border-width: 0 0 1 2; -fx-border-color: #40a02b");break;
-            case "MEDIUM" : hbox.setStyle("-fx-border-width: 0 0 1 2; -fx-border-color:  #df8e1d");break;
-            case "HIGH" : hbox.setStyle("-fx-border-width: 0 0 1 2; -fx-border-color: #d20f39");break;
-            default: hbox.setStyle("-fx-border-width: 0 0 1 2; -fx-border-color: #bcc0cc");break;
+        if(task.getPriority() != null) {
+            switch (task.getPriority()) {
+                case "LOW":
+                    hbox.setStyle("-fx-border-width: 0 0 1 2; -fx-border-color: #40a02b");
+                    break;
+                case "MEDIUM":
+                    hbox.setStyle("-fx-border-width: 0 0 1 2; -fx-border-color:  #df8e1d");
+                    break;
+                case "HIGH":
+                    hbox.setStyle("-fx-border-width: 0 0 1 2; -fx-border-color: #d20f39");
+                    break;
+                default:
+                    break;
+            }
         }
         return hbox;
     }
@@ -214,17 +235,17 @@ public class ApplicationController implements Initializable {
         Task newTask = createNewTask();
         fileService.writeNewTask(newTask);
         taskList.clear();
-        taskList = fileService.readFile();
+        taskList = taskService.getTodayUncompletedTasks();
         setValuesToDefault();
     }
 
     private void setValuesToDefault() {
-        taskCreationPriorityChoiceBox.setValue(null);
-        taskCreationTitleTextField.setText(null);
+        taskCreationPriorityChoiceBox.setValue(TaskPriority.NONE);
+        taskCreationTitleTextField.setText("");
         taskCreationDatePicker.setValue(null);
-        taskCreationDescriptionTextField.setText(null);
-        taskCreationStartTimeTextField.setText(null);
-        taskCreationEndTimeTextField.setText(null);
+        taskCreationDescriptionTextField.setText("");
+        taskCreationStartTimeTextField.setText("");
+        taskCreationEndTimeTextField.setText("");
     }
 
     private Task createNewTask() {
@@ -235,9 +256,9 @@ public class ApplicationController implements Initializable {
                     taskCreationDescriptionTextField.getText(),
                     new Date(System.currentTimeMillis()).toString(),
                     taskCreationDatePicker.getValue().toString(),
-                    taskCreationPriorityChoiceBox.getValue().toString(),
-                    taskCreationStartTimeTextField.getText(),
-                    taskCreationEndTimeTextField.getText());
+                    taskCreationPriorityChoiceBox.getValue().toString() == null ? TaskPriority.NONE.toString() : taskCreationPriorityChoiceBox.getValue().toString(),
+                    taskCreationStartTimeTextField.getText() == null ? "" : taskCreationStartTimeTextField.getText(),
+                    taskCreationEndTimeTextField.getText() == null ? "" : taskCreationEndTimeTextField.getText());
         }else{
             return new Task(
                     UUID.randomUUID().toString(),
