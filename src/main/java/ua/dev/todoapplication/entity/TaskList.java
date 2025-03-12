@@ -2,9 +2,10 @@ package ua.dev.todoapplication.entity;
 
 import java.util.List;
 
-public class Today {
-    private List<Task> completed;
-    private List<Task> uncompleted;
+public abstract class TaskList {
+
+     public List<Task> completed;
+     public List<Task> uncompleted;
 
     public List<Task> getCompleted() {
         return completed;
@@ -24,9 +25,9 @@ public class Today {
 
     @Override
     public String toString() {
-        return "Today{" +
+        return "TaskList{" +
                 completed +
-                ", " + uncompleted +
+                uncompleted +
                 '}';
     }
 }

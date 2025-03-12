@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import ua.dev.todoapplication.entity.Root;
 import ua.dev.todoapplication.entity.Task;
-import ua.dev.todoapplication.entity.Today;
+import ua.dev.todoapplication.entity.Unsorted;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -63,11 +63,12 @@ public class FileService {
     }
 
     private void createEmptyRoot() {
-        Today today = new Today();
-        today.setUncompleted(Collections.emptyList());
-        today.setCompleted(Collections.emptyList());
+        Unsorted unsortedTasks = new Unsorted();
+        unsortedTasks.setCompleted(Collections.emptyList());
+        unsortedTasks.setUncompleted(Collections.emptyList());
         root = new Root();
-        root.setToday(today);
+        root.setProjects(Collections.emptyList());
+        root.setUnsorted(unsortedTasks);
     }
 
     public Root getRoot(){
@@ -95,9 +96,9 @@ public class FileService {
 //    }
 
     public void writeNewTask(Task task){
-        List<Task> todayUncompletedTaskList = new ArrayList<>(getRoot().getToday().getUncompleted());
-        todayUncompletedTaskList.add(task);
-        root.getToday().setUncompleted(todayUncompletedTaskList);
+        List<Task> unsortedUncompletedTaskList = new ArrayList<>(getRoot().getUnsorted().getUncompleted());
+        unsortedUncompletedTaskList.add(task);
+        root.getUnsorted().setUncompleted(unsortedUncompletedTaskList);
         writeChangesToFile();
     }
 

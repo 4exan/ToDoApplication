@@ -1,51 +1,16 @@
 {
-  "today" : {
+  "unsorted" : {
     "completed" : [ ],
     "uncompleted" : [ {
-      "id" : "51ea8414-c3fe-474d-bdce-f6773a7f6173",
-      "title" : "Test",
-      "description" : "Test",
-      "creationDate" : "Tue Mar 11 13:56:26 EET 2025",
-      "date" : "2025-03-11",
+      "id" : "631fca47-576c-461e-9a98-a7d12d42af45",
+      "title" : "Test task",
+      "description" : "Test task",
+      "creationDate" : "Wed Mar 12 12:58:55 EET 2025",
+      "date" : "2025-03-12",
       "priority" : "NONE",
       "timeStart" : "",
       "timeEnd" : ""
-    }, {
-      "id" : "689f124c-d8c9-429d-a567-89779986de15",
-      "title" : "Change storage method",
-      "description" : "Change storage from TXT to JSON",
-      "creationDate" : "Tue Mar 11 13:57:21 EET 2025",
-      "date" : "2025-03-11",
-      "priority" : "NONE",
-      "timeStart" : "",
-      "timeEnd" : ""
-    }, {
-      "id" : "1129db9d-ddf4-4c26-ab26-9b66934bf1d6",
-      "title" : "Priority test",
-      "description" : "Priority test",
-      "creationDate" : "Tue Mar 11 14:22:22 EET 2025",
-      "date" : "2025-03-11",
-      "priority" : "HIGH",
-      "timeStart" : "",
-      "timeEnd" : ""
-    }, {
-      "id" : "cd132b24-e08b-4b16-b9e7-6032cf33a561",
-      "title" : "Low priority test",
-      "description" : "Low priority test",
-      "creationDate" : "Tue Mar 11 14:24:58 EET 2025",
-      "date" : "2025-03-11",
-      "priority" : "LOW",
-      "timeStart" : "",
-      "timeEnd" : ""
-    }, {
-      "id" : "09c15c64-8647-4374-b407-07f152b1c6f1",
-      "title" : "Medium priority test",
-      "description" : "Medium priority test with time",
-      "creationDate" : "Tue Mar 11 14:25:19 EET 2025",
-      "date" : "2025-03-11",
-      "priority" : "MEDIUM",
-      "timeStart" : "14:00",
-      "timeEnd" : "14:30"
     } ]
-  }
+  },
+  "projects" : [ ]
 }

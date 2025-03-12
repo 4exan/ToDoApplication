@@ -1,9 +1,8 @@
 package ua.dev.todoapplication.service;
 
 import ua.dev.todoapplication.entity.Task;
-import ua.dev.todoapplication.entity.Today;
+import ua.dev.todoapplication.entity.Unsorted;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -15,13 +14,13 @@ public class TaskService {
         this.fileService = fileService;
     }
 
-    private Today getToday(){
-        return fileService.getRoot().getToday();
+    private Unsorted getUnsorted(){
+        return fileService.getRoot().getUnsorted();
     }
 
-    public List<Task> getTodayCompletedTasks(){
-        Today today = getToday();
-        List<Task> completed = today.getCompleted();
+    public List<Task> getUnsortedCompletedTasks(){
+        Unsorted unsortedTasks = getUnsorted();
+        List<Task> completed = unsortedTasks.getCompleted();
         if(completed.isEmpty()){
             return Collections.emptyList();
         }else{
@@ -29,9 +28,9 @@ public class TaskService {
         }
     }
 
-    public List<Task> getTodayUncompletedTasks(){
-        Today today = getToday();
-        List<Task> uncompleted = today.getUncompleted();
+    public List<Task> getUnsortedUncompletedTasks(){
+        Unsorted unsortedTasks = getUnsorted();
+        List<Task> uncompleted = unsortedTasks.getUncompleted();
         if(uncompleted.isEmpty()){
             return Collections.emptyList();
         }else{

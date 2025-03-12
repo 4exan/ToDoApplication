@@ -1,20 +1,33 @@
 package ua.dev.todoapplication.entity;
 
-public class Root {
-    private Today today;
+import java.util.List;
 
-    public Today getToday() {
-        return today;
+public class Root {
+
+    private Unsorted unsorted;
+    private List<Project> projects;
+
+    public Unsorted getUnsorted() {
+        return unsorted;
     }
 
-    public void setToday(Today today) {
-        this.today = today;
+    public void setUnsorted(Unsorted unsorted) {
+        this.unsorted = unsorted;
+    }
+
+    public List<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
     }
 
     @Override
     public String toString() {
         return "Root{" +
-                today +
+                unsorted +
+                projects +
                 '}';
     }
 }

@@ -52,7 +52,7 @@ public class ApplicationController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         defineAdvancedOptions();
         fileService.readJsonFile();
-        taskList.addAll(taskService.getTodayUncompletedTasks());
+        taskList.addAll(taskService.getUnsortedUncompletedTasks());
         if(!taskList.isEmpty()){
             refreshTaskHBox();
         }
@@ -69,7 +69,7 @@ public class ApplicationController implements Initializable {
         Task newTask = createNewTask();
         fileService.writeNewTask(newTask);
         taskList.clear();
-        taskList = taskService.getTodayUncompletedTasks();
+        taskList = taskService.getUnsortedUncompletedTasks();
     }
 
     @FXML
