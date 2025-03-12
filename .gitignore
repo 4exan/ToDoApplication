@@ -5,7 +5,7 @@ target/
 
 ### Storage files ###
 taskStorage.txt
-jsonStorage.json
+.json
 
 ### IntelliJ IDEA ###
 .idea/modules.xml

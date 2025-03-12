@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import ua.dev.todoapplication.components.TaskComponent;
 import ua.dev.todoapplication.entity.Task;
 import ua.dev.todoapplication.service.FileService;
 import ua.dev.todoapplication.service.TaskService;
@@ -53,13 +54,13 @@ public class ApplicationController implements Initializable {
         defineAdvancedOptions();
         fileService.readJsonFile();
         taskList.addAll(taskService.getUnsortedUncompletedTasks());
-        if(!taskList.isEmpty()){
+        if (!taskList.isEmpty()) {
             refreshTaskHBox();
         }
     }
 
     @FXML
-    public void refresh(){
+    public void refresh() {
         fileService.readJsonFile();
         refreshTaskHBox();
     }
@@ -70,33 +71,33 @@ public class ApplicationController implements Initializable {
         fileService.writeNewTask(newTask);
         taskList.clear();
         taskList = taskService.getUnsortedUncompletedTasks();
+        refreshTaskHBox();
     }
 
     @FXML
     void toggleAdvancedTaskCreationOptions(ActionEvent event) {
-        if(taskCreationAdvancedOptionCheckBox.isSelected()){
+        if (taskCreationAdvancedOptionCheckBox.isSelected()) {
             taskCreationVbox.getChildren().add(advancedSettingsHBox);
-        }else{
+        } else {
             taskCreationVbox.getChildren().remove(1);
         }
     }
 
     @FXML
-    public void addNewProject(){
+    public void addNewProject() {
 
     }
 
-    private void refreshTaskHBox(){
+    private void refreshTaskHBox() {
         taskListVBox.getChildren().clear();
         List<HBox> tasks = new ArrayList<>();
         taskList.forEach(task -> {
-            HBox hbox = creator.createTaskHBox(task);
-            tasks.add(hbox);
+            tasks.add(new TaskComponent(task).getHbox());
         });
         taskListVBox.getChildren().addAll(tasks);
     }
 
-    private void defineAdvancedOptions(){
+    private void defineAdvancedOptions() {
         taskCreationPriorityChoiceBox = creator.createAdvancedOptionChoiceBox(taskCreationPriorityChoiceBox);
         taskCreationStartTimeTextField = creator.createAdvancedOptionStartTimeTF(taskCreationStartTimeTextField);
         taskCreationEndTimeTextField = creator.createAdvancedOptionEndTimeTF(taskCreationEndTimeTextField);
@@ -104,14 +105,14 @@ public class ApplicationController implements Initializable {
     }
 
     private Task createNewTask() {
-            return new Task(
-                    UUID.randomUUID().toString(),
-                    taskCreationTitleTextField.getText(),
-                    taskCreationDescriptionTextField.getText(),
-                    new Date(System.currentTimeMillis()).toString(),
-                    taskCreationDatePicker.getValue().toString(),
-                    taskCreationPriorityChoiceBox.getValue().toString() == null ? TaskPriority.NONE.toString() : taskCreationPriorityChoiceBox.getValue().toString(),
-                    taskCreationStartTimeTextField.getText() == null ? "" : taskCreationStartTimeTextField.getText(),
-                    taskCreationEndTimeTextField.getText() == null ? "" : taskCreationEndTimeTextField.getText());
+        return new Task(
+                UUID.randomUUID().toString(),
+                taskCreationTitleTextField.getText(),
+                taskCreationDescriptionTextField.getText(),
+                new Date(System.currentTimeMillis()).toString(),
+                taskCreationDatePicker.getValue().toString(),
+                taskCreationPriorityChoiceBox.getValue().toString() == null ? TaskPriority.NONE.toString() : taskCreationPriorityChoiceBox.getValue().toString(),
+                taskCreationStartTimeTextField.getText() == null ? "" : taskCreationStartTimeTextField.getText(),
+                taskCreationEndTimeTextField.getText() == null ? "" : taskCreationEndTimeTextField.getText());
     }
 }
