@@ -10,6 +10,7 @@ public class TodoApplication extends Application {
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlloader = new FXMLLoader(TodoApplication.class.getResource("todoApplication.fxml"));
         Scene scene = new Scene(fxmlloader.load());
+        scene.getStylesheets().add(getClass().getResource("stylesheets/late.css").toExternalForm());
         stage.setTitle("Todo Application!");
         stage.setScene(scene);
         stage.show();

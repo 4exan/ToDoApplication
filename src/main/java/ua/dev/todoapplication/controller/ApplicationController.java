@@ -6,7 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import ua.dev.todoapplication.components.TaskComponent;
+import ua.dev.todoapplication.component.TaskComponent;
 import ua.dev.todoapplication.entity.Task;
 import ua.dev.todoapplication.service.FileService;
 import ua.dev.todoapplication.service.TaskService;
@@ -44,8 +44,8 @@ public class ApplicationController implements Initializable {
     private TextField taskCreationEndTimeTextField;
 
     private final ObjectCreator creator = new ObjectCreator();
-    private final FileService fileService = new FileService();
-    private final TaskService taskService = new TaskService(fileService);
+    private final FileService fileService = new FileService("jsonStorage.json");
+    private final TaskService taskService = new TaskService();
 
     private HBox advancedSettingsHBox;
 
@@ -86,6 +86,30 @@ public class ApplicationController implements Initializable {
     @FXML
     public void addNewProject() {
 
+    }
+
+    @FXML
+    public void showCompletedTasks(ActionEvent event){
+        taskList.clear();
+        taskListVBox.getChildren().clear();
+        List<Task> completedTasks = fileService.getRoot().getUnsorted().getCompleted();
+        List<HBox> taskComponents = new ArrayList<>();
+        completedTasks.forEach(task -> {
+            taskComponents.add(new TaskComponent(task).getHbox());
+        });
+        taskListVBox.getChildren().addAll(taskComponents);
+    }
+
+    @FXML
+    public void showUncompletedTasks(ActionEvent event){
+        taskList.clear();
+        taskListVBox.getChildren().clear();
+        List<Task> uncompletedTasks = fileService.getRoot().getUnsorted().getUncompleted();
+        List<HBox> taskComponents = new ArrayList<>();
+        uncompletedTasks.forEach(task -> {
+            taskComponents.add(new TaskComponent(task).getHbox());
+        });
+        taskListVBox.getChildren().addAll(taskComponents);
     }
 
     private void refreshTaskHBox() {

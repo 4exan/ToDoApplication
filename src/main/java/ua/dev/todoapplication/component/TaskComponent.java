@@ -1,4 +1,4 @@
-package ua.dev.todoapplication.components;
+package ua.dev.todoapplication.component;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -7,10 +7,13 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import ua.dev.todoapplication.entity.Task;
+import ua.dev.todoapplication.service.TaskService;
 
 import java.util.List;
 
 public class TaskComponent {
+
+    private final TaskService taskService;
 
     private final Task task;
     private HBox hbox;
@@ -18,6 +21,7 @@ public class TaskComponent {
     public TaskComponent(Task task) {
         this.task = task;
         createTaskComponent();
+        this.taskService = new TaskService();
     }
 
     public HBox getHbox() {
@@ -34,11 +38,15 @@ public class TaskComponent {
     }
 
     private HBox createTaskBox(Task task){
-        HBox hbox = createHBox(200, 50, 5, Pos.CENTER_LEFT);
+        HBox hbox = createHBox(600, 50, 5, Pos.CENTER_LEFT);
         hbox.setPadding(new Insets(0, 0, 0, 5));
-        hbox.getStylesheets().add("stylesheet.css");
-        hbox.setId("taskHBox");
-        hbox.setStyle(priorityStyle(task.getPriority()));
+        HBox.setMargin(hbox, new Insets(0, 0, 0, 5));
+        switch (task.getPriority()){
+            case "LOW" : hbox.setId("lowPriorityTaskContainer"); break;
+            case "MEDIUM": hbox.setId("mediumPriorityTaskContainer"); break;
+            case "HIGH": hbox.setId("highPriorityTaskContainer"); break;
+            default: hbox.setId("defaultTaskContainer"); break;
+        }
         return hbox;
     }
 
@@ -50,14 +58,19 @@ public class TaskComponent {
 
 
     private HBox createBtnHBox() {
-        HBox btnBox = createHBox(200, 50, 5, Pos.CENTER_RIGHT);
-        Button completeTaskBtn = new Button();
+        HBox btnBox = createHBox(200, 50, 5, Pos.CENTER);
+        Button completeTaskBtn = new Button("Complete");
         completeTaskBtn.setId("completeTaskBtn");
         completeTaskBtn.setOnAction(actionEvent -> {
             System.out.println("Task with id: " + task.getId() + " is completed!");
+            taskService.completeTask(task);
         });
-        Button editTaskBtn = new Button();
-        Button deleteTaskBtn = new Button();
+        Button editTaskBtn = new Button("Edit");
+        editTaskBtn.setId("editTaskBtn");
+        editTaskBtn.setOnAction(actionEvent -> {
+            System.out.println("Stylesheet: " + editTaskBtn.getStylesheets().getFirst());
+        });
+        Button deleteTaskBtn = new Button("Delete");
         deleteTaskBtn.setId("deleteTaskBtn");
         btnBox.getChildren().addAll(List.of(completeTaskBtn, editTaskBtn, deleteTaskBtn));
         return btnBox;
@@ -73,14 +86,14 @@ public class TaskComponent {
 
 
     private VBox createDateTimeVBox(Task task) {
-        VBox dateTimeVBox = createVBox(100, 50, 0, Pos.CENTER);
+        VBox dateTimeVBox = createVBox(200, 50, 0, Pos.CENTER);
         dateTimeVBox.getChildren().addAll(createDateTimeLabels(task));
         return dateTimeVBox;
     }
 
     private List<Label> createDateTimeLabels(Task task) {
         Label date = new Label(task.getDate());
-        date.setId("taskDateLabel");
+        date.setId("taskDate");
 
         if(task.getTimeStart().isEmpty() && task.getTimeEnd().isEmpty()){
             return List.of(date);
@@ -106,8 +119,7 @@ public class TaskComponent {
             dateTimeString.append("...");
         }
         timeLabel.setText(String.valueOf(dateTimeString));
-        timeLabel.getStylesheets().add("stylesheet.css");
-        timeLabel.setId("taskTimeLabel");
+        timeLabel.setId("taskTime");
         return timeLabel;
     }
 
@@ -127,14 +139,4 @@ public class TaskComponent {
         hbox.setAlignment(alignment);
         return hbox;
     }
-
-    private String priorityStyle(String priority) {
-        return switch (priority) {
-            case "LOW" -> "-fx-border-width: 0 0 1 2; -fx-border-color: #40a02b";
-            case "MEDIUM" -> "-fx-border-width: 0 0 1 2; -fx-border-color:  #df8e1d";
-            case "HIGH" -> "-fx-border-width: 0 0 1 2; -fx-border-color: #d20f39";
-            default -> "-fx-border-width: 0 0 1 2; -fx-border-color: #bcc0cc";
-        };
-    }
-
 }

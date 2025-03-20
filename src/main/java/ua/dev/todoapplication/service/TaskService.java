@@ -10,8 +10,8 @@ public class TaskService {
 
     private final FileService fileService;
 
-    public TaskService(FileService fileService) {
-        this.fileService = fileService;
+    public TaskService() {
+        this.fileService = new FileService("jsonStorage.json");
     }
 
     private Unsorted getUnsorted(){
@@ -30,7 +30,7 @@ public class TaskService {
 
     public List<Task> getUnsortedUncompletedTasks(){
         Unsorted unsortedTasks = getUnsorted();
-        List<Task> uncompleted = unsortedTasks.getUncompleted();
+        List<Task> uncompleted = unsortedTasks.getUncompleted() == null ? Collections.emptyList() : unsortedTasks.getUncompleted();
         if(uncompleted.isEmpty()){
             return Collections.emptyList();
         }else{
@@ -38,4 +38,9 @@ public class TaskService {
         }
     }
 
+    public void completeTask(Task completedTask) {
+        Unsorted unsortedTasks = getUnsorted();
+        List<Task> uncompleted = unsortedTasks.getUncompleted();
+        //TODO
+    }
 }

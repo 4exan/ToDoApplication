@@ -9,7 +9,6 @@ public class Task {
     private String priority;
     private String timeStart;
     private String timeEnd;
-    private String category;
 
     public Task() {
     }
