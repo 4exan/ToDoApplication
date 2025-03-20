@@ -4,27 +4,29 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="base" prefHeight="600.0" prefWidth="800.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ua.dev.todoapplication.controller.ApplicationController">
+<AnchorPane id="base" prefHeight="600.0" prefWidth="800.0" stylesheets="@stylesheets/late.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ua.dev.todoapplication.controller.ApplicationController">
    <children>
-      <VBox id="taskVbox" fx:id="taskVbox" layoutX="195.0" layoutY="195.0" prefHeight="450.0" prefWidth="600.0" stylesheets="@stylesheet.css" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">
+      <VBox id="taskVbox" fx:id="taskVbox" layoutX="195.0" layoutY="195.0" prefHeight="450.0" prefWidth="615.0" stylesheets="@stylesheets/late.css" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">
          <children>
-            <VBox id="taskCreationVBox" alignment="CENTER" prefHeight="100.0" prefWidth="100.0" stylesheets="@stylesheet.css">
+            <VBox id="taskCreationVBox" alignment="CENTER" prefWidth="615.0" stylesheets="@stylesheets/late.css">
                <children>
                   <HBox alignment="CENTER" prefWidth="200.0">
                      <children>
-                        <VBox fx:id="taskCreationVbox" alignment="CENTER" prefHeight="100.0" prefWidth="550.0" spacing="5.0">
+                        <VBox fx:id="taskCreationVbox" alignment="CENTER" prefWidth="550.0" spacing="5.0">
                            <children>
-                              <HBox id="taskCreationMainHbox" fx:id="taskCreationMainHbox" alignment="CENTER" prefWidth="520.0" spacing="5.0" stylesheets="@stylesheet.css">
+                              <HBox id="taskCreationMainHbox" fx:id="taskCreationMainHbox" alignment="CENTER" prefWidth="520.0" spacing="5.0" stylesheets="@stylesheets/late.css">
                                  <children>
                                     <TextField fx:id="taskCreationTitleTextField" promptText="Task title" stylesheets="@stylesheet.css" />
                                     <TextField fx:id="taskCreationDescriptionTextField" promptText="Description" stylesheets="@stylesheet.css" />
-                                    <DatePicker fx:id="taskCreationDatePicker" prefWidth="100.0" promptText="Task date" />
+                                    <DatePicker id="datePicker" fx:id="taskCreationDatePicker" prefWidth="100.0" promptText="Task date" styleClass="date-picker" />
                                     <Button id="addNewTaskBtn" fx:id="addNewTaskBtn" mnemonicParsing="false" onAction="#addNewTask" stylesheets="@stylesheet.css" text="Add new task" />
                                  </children>
                                  <opaqueInsets>
@@ -39,32 +41,80 @@
                               <Insets left="5.0" />
                            </padding>
                         </VBox>
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                        <VBox alignment="TOP_CENTER" prefWidth="100.0">
                            <children>
-                              <CheckBox id="moreCheckBox" fx:id="taskCreationAdvancedOptionCheckBox" mnemonicParsing="false" onAction="#toggleAdvancedTaskCreationOptions" stylesheets="@stylesheet.css" text="More" />
+                              <CheckBox id="moreCheckBox" fx:id="taskCreationAdvancedOptionCheckBox" mnemonicParsing="false" onAction="#toggleAdvancedTaskCreationOptions" prefHeight="10.0" stylesheets="@stylesheet.css" text="More" />
                            </children>
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
                         </VBox>
                      </children>
                   </HBox>
                </children>
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding>
             </VBox>
-            <ScrollPane fx:id="taskScrollPane" prefHeight="350.0" prefWidth="600.0">
+            <ScrollPane id="scrollPane" fx:id="taskScrollPane" prefHeight="350.0" prefWidth="615.0" stylesheets="@stylesheets/late.css">
                <content>
-                  <VBox fx:id="taskListVBox" prefWidth="580.0" spacing="3.0" />
+                  <VBox fx:id="taskListVBox" prefWidth="600.0" spacing="5.0">
+                     <children>
+                        <HBox id="defaultTaskContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="600.0" spacing="5.0" stylesheets="@stylesheets/late.css">
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                           <children>
+                              <VBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0">
+                                 <children>
+                                    <Label id="taskTitle" stylesheets="@stylesheets/late.css" text="Task Title">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label id="taskDescription" stylesheets="@stylesheets/late.css" text="Task Description" />
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="5.0">
+                                 <children>
+                                    <Label id="taskDate" stylesheets="@stylesheets/late.css" text="30-05-2025">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label id="taskTime" stylesheets="@stylesheets/late.css" text="12:00 - 17:00" />
+                                 </children>
+                              </VBox>
+                              <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="5.0">
+                                 <children>
+                                    <Button id="completeTaskBtn" mnemonicParsing="false" stylesheets="@stylesheets/late.css" text="Complete" />
+                                    <Button id="editTaskBtn" mnemonicParsing="false" stylesheets="@stylesheets/late.css" text="Edit" />
+                                    <Button id="deleteTaskBtn" mnemonicParsing="false" stylesheets="@stylesheets/late.css" text="Delete" />
+                                 </children>
+                              </HBox>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets left="5.0" top="5.0" />
+                     </padding></VBox>
                </content>
             </ScrollPane>
          </children>
       </VBox>
-      <VBox layoutX="53.0" layoutY="156.0" prefHeight="400.0" prefWidth="185.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0">
+      <VBox layoutX="53.0" layoutY="156.0" prefHeight="400.0" prefWidth="150.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0">
          <children>
             <VBox alignment="CENTER" prefHeight="50.0" prefWidth="185.0">
                <children>
                   <Button fx:id="addProjectBtn" mnemonicParsing="false" onAction="#addNewProject" text="+" />
                </children>
             </VBox>
-            <ScrollPane prefHeight="350.0" prefWidth="185.0">
+            <ScrollPane prefHeight="350.0" prefWidth="200.0">
                <content>
-                  <VBox fx:id="projectsVBox" prefWidth="180.0" spacing="5.0">
+                  <VBox fx:id="projectsVBox" prefWidth="150.0" spacing="5.0">
                      <padding>
                         <Insets top="5.0" />
                      </padding>
@@ -73,11 +123,10 @@
             </ScrollPane>
          </children>
       </VBox>
-      <VBox alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="190.0" prefWidth="185.0" spacing="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
+      <VBox alignment="CENTER" layoutX="5.0" layoutY="5.0" prefHeight="190.0" prefWidth="172.0" spacing="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
          <children>
-            <Button mnemonicParsing="false" stylesheets="@stylesheet.css" text="Today" />
-            <Button mnemonicParsing="false" stylesheets="@stylesheet.css" text="Completed" />
-            <Button mnemonicParsing="false" stylesheets="@stylesheet.css" text="Uncompleted" />
+            <Button mnemonicParsing="false" onAction="#showCompletedTasks" stylesheets="@stylesheet.css" text="Completed" />
+            <Button mnemonicParsing="false" onAction="#showUncompletedTasks" stylesheets="@stylesheet.css" text="Uncompleted" />
             <HBox prefHeight="10.0" prefWidth="200.0" spacing="5.0">
                <children>
                   <DatePicker prefWidth="100.0" />
